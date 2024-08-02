@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 import game
 
 
@@ -59,6 +60,26 @@ class TestGame(unittest.TestCase):
         board = ["X", " ", "X", " ", "X", " ", "O", "O", "O"]
         self.assertEqual(game.check_for_game_over(board), (True, "O"))
 
+    @patch("builtins.input", side_effect=["Yes", "Y", "No", "N"])
+    def test_want_to_play(self, mock_input):
+        self.assertTrue(game.want_to_play())
+        self.assertTrue(game.want_to_play())
+        self.assertFalse(game.want_to_play())
+        self.assertFalse(game.want_to_play())
 
-if __name__ == '__main__':
+    @patch("builtins.input", side_effect=["X", "x", "O", "o"])
+    def test_which_sign(self, mock_input):
+        self.assertEqual(game.which_sign(),"X")
+        self.assertEqual(game.which_sign(), "X")
+        self.assertEqual(game.which_sign(), "O")
+        self.assertEqual(game.which_sign(), "O")
+
+    @patch("builtins.input", side_effect=["1", "4", "9"])
+    def test_put_sign_where(self, mock_input):
+        self.assertEqual(game.put_sign_where(),1)
+        self.assertEqual(game.put_sign_where(), 4)
+        self.assertEqual(game.put_sign_where(), 9)
+
+
+if __name__ == "__main__":
     unittest.main()

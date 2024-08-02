@@ -62,7 +62,6 @@ def which_sign():
         sign = which_sign_input(sign_choice)
     return sign
 
-
 def which_sign_input(sign_choice):
     """
     Based on sign_choice parameter sends back
@@ -157,17 +156,14 @@ def check_for_game_over(board):
     :param board: required; list of 9 str
     :return: bool, str|None
     """
-    if board[6] != " " and board[6] == board[7] == board[8]:
-        return True, board[6]
-    if board[6] != " " and board[6] == board[4] == board[2]:
-        return True, board[6]
-    if board[6] != " " and board[6] == board[3] == board[0]:
+    if board[6] != " " and (board[6] == board[7] == board[8]
+                            or board[6] == board[4] == board[2]
+                            or board[6] == board[3] == board[0]):
         return True, board[6]
     if board[7] != " " and board[7] == board[4] == board[1]:
         return True, board[7]
-    if board[8] != " " and board[8] == board[4] == board[0]:
-        return True, board[8]
-    if board[8] != " " and board[8] == board[5] == board[2]:
+    if board[8] != " " and (board[8] == board[4] == board[0]
+                            or board[8] == board[5] == board[2]):
         return True, board[8]
     if board[3] != " " and board[3] == board[4] == board[5]:
         return True, board[3]
